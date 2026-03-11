@@ -1,0 +1,66 @@
+<!-- Insights page -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Insights - Energy Company</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <a href="index.html">
+                <div>
+                    <img src="images/logo1.png" alt="energy_company logo" />
+                    <h3>Energy Company</h3>
+                </div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" data-page ="home" class="nav-link">Home</a></li>
+                    <li><a href="televisions.html" data-page ="televisions" class="nav-link">Televisions</a></li>
+                    <li><a href="insights.html" data-page ="insights" class="nav-link active">Insights</a></li>
+                    <li><a href="about.html" data-page ="about" class="nav-link">About us</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section>
+                <h1>Energy Insights</h1>
+                <p>Discover the latest trends and insights in TV energy consumption. We analyze data from the Australian government's energy rating website to bring you valuable information on how TVs are evolving in terms of energy efficiency.</p>
+            </section>
+            
+            <section>
+                <h2>Trends in Energy Efficiency</h2>
+                <p>Over the past few years, there has been a significant improvement in the energy efficiency of televisions. Manufacturers are adopting new technologies that reduce power consumption while maintaining high performance and picture quality.</p>
+                <h3>Most Frequent Screen Technology in Australia</h3>
+                <p>Let's explore the most common screen technologies used in Australian televisions.</p>
+                <img src="images/screen_tech_freq.png" alt="Screen Technology Frequency" style="max-width: 100%; height: auto; margin-top: 10px;" />
+                <p>As depicted in the bar chart, LED technology is the most prevalent among Australian televisions, followed by LCD and OLED technologies. This trend reflects the market's preference for energy-efficient and cost-effective options.</p>
+                <h3>Power used by different TV technologies</h3>
+                <p>Have you ever wondered how much power different TV technologies use? Here's a quick look:</p>
+                <img src="images/power_screen_tech.png" alt="TV Technology Energy Consumption" style="max-width: 100%; height: auto; margin-top: 10px;" />
+                <p>This box plot shows the power consumption for 3 types of screen technologies. As you can see, OLED TVs, in average, tend to consume more energy than LED and LCD TVs.</p>
+                <p>However, the traditional LCD models tend to have a wider range of power consumption depending on the specific features and size. Some LCD models can be quite efficient, while others are reported to consume more power than OLED models.</p>
+
+                <h3>Energy consumption by screen size</h3>
+                <img src="images/power_screen_size.png" alt="TV Screen Size Energy Consumption" style="max-width: 100%; height: auto; margin-top: 10px;" />
+                <p>Energy consumption of different TV sizes also varies significantly, with larger screens generally using more power.</p>
+
+                <h3>Star rating for different screen sizes</h3>
+                <img src="images/SRI_screen_size.png" alt="TV Screen Size Star Rating" style="max-width: 100%; height: auto; margin-top: 10px;" />
+                <p>Generally, the TVs sizes do not affect the star rating significantly. Each size range has the rating spread. However, some medium-sized (60-inch) TVs tend to have slightly low star ratings.</p>
+            </section>
+            <section>
+                <h2>Acknowledgements</h2>
+                <p>Data Source: All TV data is sourced from the Australian Government's official energy rating website at <a href="https://reg.energyrating.gov.au/comparator/product_types/32/search/?expired_products=on" class="hyperlinks">reg.energyrating.gov.au</a>.</p>
+                <p>Data Analysis and Visualization: The insights and visualizations presented on this page were created using KNIME Analytics Platform</p>
+            </section>
+    </body>
+    <footer>
+             <p>&copy; 2026 Nhat Lam Energy Company</p>
+            <p>Page Content created with help from GitHub Copilot</p>
+    </footer>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="script.js"></script>
+</html>
