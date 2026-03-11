@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SVG House &amp; Garden</title>
+  <style>
+    /* ── Page styling ── */
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #e8f4f8;
+      font-family: Arial, sans-serif;
+    }
+
+    /* ── SVG-level styling via CSS classes ── */
+    .sky        { fill: #d1e8fc; }
+    .ground     { fill: #6daf5f; }
+    .wall       { fill: #f5deb3; stroke: #8b6c42; stroke-width: 2; }
+    .roof       { fill: #d41377; stroke: #8b0000; stroke-width: 2; }
+    .door       { fill: #1c71df92; stroke: #5c2d0a; stroke-width: 1.5; }
+    .door-knob  { fill: #ffd700; }
+    .window     { fill: #add8e6; stroke: #4682b4; stroke-width: 2; }
+    .window-cross{ stroke: #4682b4; stroke-width: 1.5; fill: none; }
+    .chimney    { fill: #a0522d; stroke: #8b4513; stroke-width: 1.5; }
+    .smoke-path { fill: none; stroke: #ccc; stroke-width: 3;
+                  stroke-linecap: round; opacity: 0.8; }
+    .path-fence { fill: none; stroke: #8b6c42; stroke-width: 3;
+                  stroke-linecap: round; }
+    .sun        { fill: #ffd700; }
+    .sun-ray    { stroke: #ffd700; stroke-width: 2.5; stroke-linecap: round; }
+    .cloud      { fill: white; opacity: 0.9; }
+    .tree-trunk { fill: #8b5e3c; }
+    .tree-top   { fill: #228b22; }
+    .flower-stem{ stroke: #228b22; stroke-width: 2; fill: none; }
+    .flower-petal{ fill: #ff69b4; }
+    .flower-centre{ fill: #ffd700; }
+    .path-sign  { fill: #f0e68c; stroke: #b8860b; stroke-width: 1.5; }
+    .label      { font-family: Arial, sans-serif; font-size: 13px;
+                  fill: #333; }
+    .sign-text  { font-family: Georgia, serif; font-size: 14px;
+                  fill: #5c2d0a; font-weight: bold; text-anchor: middle; }
+    .title-text { font-family: Georgia, serif; font-size: 22px;
+                  fill: #2c3e50; font-weight: bold; text-anchor: middle; }
+  </style>
+</head>
+<body>
+
+<!--=================================================================
+    SVG canvas  800 × 520
+    Demonstrates:
+      1. Shapes  – rect, circle, ellipse, line
+      2. Paths   – roof triangle, smoke, wavy path, fence pickets
+      3. Text    – title, sign, labels
+      4. Grouping & transformations – translate, rotate, scale
+      5. Styling – CSS classes, inline fill/stroke, opacity
+=================================================================-->
+<svg xmlns="http://www.w3.org/2000/svg"
+     width="800" height="520"
+     viewBox="0 0 800 520"
+     role="img" aria-label="SVG house and garden scene">
+
+  <!-- ═══════════════════════════════════════════
+       BACKGROUND
+       Shapes: rect (sky), rect (ground)
+  ═══════════════════════════════════════════ -->
+  <rect x="0" y="0" width="800" height="360" class="sky" />
+  <rect x="0" y="360" width="800" height="160" class="ground" />
+
+  <!-- ═══════════════════════════════════════════
+       SUN  –  circle + lines (rays)
+       Grouping + translate
+  ═══════════════════════════════════════════ -->
+  <g id="sun" transform="translate(700, 70)">
+    <!-- 1. Shape: circle -->
+    <circle cx="0" cy="0" r="38" class="sun" />
+    <!-- 1. Shape: lines as rays -->
+    <line x1="0" y1="-50" x2="0"  y2="-44" class="sun-ray" />
+    <line x1="0" y1=" 50" x2="0"  y2=" 44" class="sun-ray" />
+    <line x1="-50" y1="0" x2="-44" y2="0"  class="sun-ray" />
+    <line x1=" 50" y1="0" x2=" 44" y2="0"  class="sun-ray" />
+    <line x1="-35" y1="-35" x2="-31" y2="-31" class="sun-ray" />
+    <line x1=" 35" y1="-35" x2=" 31" y2="-31" class="sun-ray" />
+    <line x1="-35" y1=" 35" x2="-31" y2=" 31" class="sun-ray" />
+    <line x1=" 35" y1=" 35" x2=" 31" y2=" 31" class="sun-ray" />
+  </g>
+
+  <!-- ═══════════════════════════════════════════
+       CLOUDS  –  overlapping ellipses
+       Grouping + translate
+  ═══════════════════════════════════════════ -->
+  <!-- 1. Shape: ellipse -->
+  <g id="cloud1" transform="translate(120, 60)">
+    <ellipse cx="0"   cy="0"   rx="45" ry="28" class="cloud" />
+    <ellipse cx="38"  cy="5"   rx="38" ry="22" class="cloud" />
+    <ellipse cx="-30" cy="8"   rx="30" ry="18" class="cloud" />
+  </g>
+
+  <g id="cloud2" transform="translate(400, 40)">
+    <ellipse cx="0"   cy="0"   rx="50" ry="30" class="cloud" />
+    <ellipse cx="42"  cy="6"   rx="40" ry="22" class="cloud" />
+    <ellipse cx="-32" cy="8"   rx="33" ry="20" class="cloud" />
+  </g>
+
+  <!-- ═══════════════════════════════════════════
+       HOUSE
+       Grouping + translate
+  ═══════════════════════════════════════════ -->
+  <g id="house" transform="translate(230, 170)">
+
+    <!-- 1. Path: roof triangle -->
+    <path d="M -20 0 L 170 -130 L 360 0 Z" class="roof" />
+    <!-- Chimney -->
+         <rect x="220" y="-80" width="40" height="50" class="chimney" />
+
+
+    <!-- 1. Shape: rect – main wall -->
+    <rect x="0" y="0" width="340" height="200" class="wall" />
+
+    <!-- Door  (rect + arc path for rounded top) -->
+    <!-- 2. Path: arched door top -->
+    <rect x="135" y="95" width="70" height="105" class="door" />
+    <path d="M 135 95 Q 170 55 205 95" class="door" stroke="#5c2d0a"
+          stroke-width="1.5" />
+    <!-- 1. Shape: circle – door knob -->
+    <circle cx="198" cy="152" r="5" class="door-knob" />
+
+    <!-- Left window -->
+    <!-- 1. Shape: rect -->
+    <rect x="30" y="60" width="80" height="75" rx="5" ry="5" class="window" />
+    <!-- Window cross-bar lines -->
+    <line x1="70"  y1="60"  x2="70"  y2="135" class="window-cross" />
+    <line x1="30"  y1="97"  x2="110" y2="97"  class="window-cross" />
+
+    <!-- Right window -->
+    <rect x="230" y="60" width="80" height="75" rx="5" ry="5" class="window" />
+    <line x1="270" y1="60"  x2="270" y2="135" class="window-cross" />
+    <line x1="230" y1="97"  x2="310" y2="97"  class="window-cross" />
+
+    <!-- 2. Path: smoke curling from chimney -->
+    <path d="M 235 -65
+             C 225 -90  250 -105  240 -130
+             C 230 -155 255 -165  245 -190"
+          class="smoke-path" />
+    <path d="M 248 -70
+             C 260 -95  240 -112  252 -138
+             C 264 -163 244 -172  256 -198"
+          class="smoke-path" opacity="0.5" />
+  </g><!-- /house -->
+
+  <!-- ═══════════════════════════════════════════
+       FENCE  –  path-based pickets + horizontal rails
+       Grouping + translate
+  ═══════════════════════════════════════════ -->
+  <g id="fence" transform="translate(0, 340)">
+    <!-- Horizontal rails -->
+    <line x1="30"  y1="25"  x2="770" y2="25"  class="path-fence" />
+    <line x1="30"  y1="50"  x2="770" y2="50"  class="path-fence" />
+
+    <!-- 2. Path: fence pickets using closed paths -->
+    <!-- Each picket: vertical post with pointed top -->
+    <!-- We'll macro this with a <use> + <defs> approach -->
+    <defs>
+      <path id="picket"
+            d="M 0 0 L 0 -60 L 5 -70 L 10 -60 L 10 0 Z"
+            class="path-fence"
+            style="fill:#f5deb3; stroke:#8b6c42; stroke-width:1.5;" />
+    </defs>
+
+    <!-- Place pickets every 22 px from x=30 to x=760 -->
+    <use href="#picket" transform="translate(30,  65)" />
+    <use href="#picket" transform="translate(52,  65)" />
+    <use href="#picket" transform="translate(74,  65)" />
+    <use href="#picket" transform="translate(96,  65)" />
+    <use href="#picket" transform="translate(118, 65)" />
+    <use href="#picket" transform="translate(140, 65)" />
+    <use href="#picket" transform="translate(162, 65)" />
+    <use href="#picket" transform="translate(184, 65)" />
+    <use href="#picket" transform="translate(206, 65)" />
+    <!-- gap for gate -->
+    <use href="#picket" transform="translate(310, 65)" />
+    <use href="#picket" transform="translate(332, 65)" />
+    <use href="#picket" transform="translate(354, 65)" />
+    <use href="#picket" transform="translate(376, 65)" />
+    <use href="#picket" transform="translate(398, 65)" />
+    <use href="#picket" transform="translate(420, 65)" />
+    <use href="#picket" transform="translate(442, 65)" />
+    <use href="#picket" transform="translate(464, 65)" />
+    <use href="#picket" transform="translate(486, 65)" />
+    <use href="#picket" transform="translate(508, 65)" />
+    <use href="#picket" transform="translate(530, 65)" />
+    <use href="#picket" transform="translate(552, 65)" />
+    <use href="#picket" transform="translate(574, 65)" />
+    <use href="#picket" transform="translate(596, 65)" />
+    <use href="#picket" transform="translate(618, 65)" />
+    <use href="#picket" transform="translate(640, 65)" />
+    <use href="#picket" transform="translate(662, 65)" />
+    <use href="#picket" transform="translate(684, 65)" />
+    <use href="#picket" transform="translate(706, 65)" />
+    <use href="#picket" transform="translate(728, 65)" />
+    <use href="#picket" transform="translate(750, 65)" />
+
+    <!-- Gate posts (taller pickets, scaled) -->
+    <use href="#picket" transform="translate(228, 65) scale(1.4)" />
+    <use href="#picket" transform="translate(284, 65) scale(1.4)" />
+    <!-- Gate cross bar -->
+    <line x1="231" y1="10" x2="298" y2="10"
+          stroke="#8b6c42" stroke-width="2.5" />
+    <!-- 2. Path: diagonal gate brace -->
+    <path d="M 231 10 L 298 65" class="path-fence" stroke-width="2" />
+  </g><!-- /fence -->
+
+  <!-- ═══════════════════════════════════════════
+       GARDEN PATH  –  wavy SVG path
+       2. Paths
+  ═══════════════════════════════════════════ -->
+  <path d="M 340 520
+           C 330 490  360 470  350 450
+           C 340 430  370 415  360 400
+           C 350 385  375 370  365 360"
+        fill="none"
+        stroke="#c8a96e"
+        stroke-width="28"
+        stroke-linecap="round"
+        opacity="0.8" />
+        <!-- stones -->
+    <circle cx="365" cy="400" r="5" fill="#ccc" opacity="1" />
+    <circle cx="350" cy="420" r="5" fill="#ccc" opacity="1" />
+    <circle cx="365" cy="360" r="5" fill="#ccc" opacity="1" />
+    <circle cx="355" cy="460" r="5" fill="#ccc" opacity="1" />
+
+
+  <!-- ═══════════════════════════════════════════
+       TREES  –  rect trunk + circle top
+       Grouping + translate + scale
+  ═══════════════════════════════════════════ -->
+  <defs>
+    <!-- Reusable tree symbol -->
+    <g id="tree" transform="translate(0, 130)">
+      <!-- 1. Shape: rect – trunk -->
+      <rect x="-8" y="0" width="16" height="50" class="tree-trunk" />
+      <!-- 1. Shape: circle – foliage -->
+      <circle cx="0" cy="-20" r="38" class="tree-top" />
+      <!-- Fruits -->
+        <circle cx="-10" cy="-30" r="5" fill="#e0bb01" />
+        <circle cx="15" cy="-25" r="5" fill="#f57c00" />
+        <circle cx="0" cy="-40" r="5" fill="#fb8c00" />
+        <circle cx="10" cy="-10" r="5" fill="#e65100" />
+        <circle cx="-15" cy="-5" r="5" fill="#ff5722" />
+        <circle cx="5" cy="0" r="5" fill="#ff7043" />
+    </g>
+  </defs>
+
+  <!-- Left tree -->
+  <use href="#tree" transform="translate(80, 280)" />
+  <!-- Right tree (larger, scaled) -->
+  <use href="#tree" transform="translate(690, 270) scale(1.3)" />
+  <!-- Small decorative trees at back -->
+  <use href="#tree" transform="translate(160, 330) scale(0.75)" />
+  <use href="#tree" transform="translate(620, 315) scale(0.8)" />
+
+  <!-- ═══════════════════════════════════════════
+       FLOWERS  –  circle centre + ellipse petals
+       Grouping + translate + rotate (transform)
+  ═══════════════════════════════════════════ -->
+  <defs>
+    <g id="flower">
+      <!-- stem -->
+      <line x1="0" y1="0" x2="0" y2="30" class="flower-stem" />
+      <!-- 4 petals rotated around centre
+           5. Styling: rotate transform -->
+      <ellipse cx="0" cy="-12" rx="6" ry="11" class="flower-petal" />
+      <ellipse cx="0" cy="-12" rx="6" ry="11" class="flower-petal"
+               transform="rotate(90)" />
+      <ellipse cx="0" cy="-12" rx="6" ry="11" class="flower-petal"
+               transform="rotate(180)" />
+      <ellipse cx="0" cy="-12" rx="6" ry="11" class="flower-petal"
+               transform="rotate(270)" />
+      <!-- 1. Shape: circle – flower centre -->
+      <circle cx="0" cy="0" r="7" class="flower-centre" />
+    </g>
+  </defs>
+
+  <!-- Flower bed along front of house -->
+  <use href="#flower" transform="translate(240, 355)" />
+  <use href="#flower" transform="translate(268, 358)" />
+  <use href="#flower" transform="translate(296, 356)" />
+  <use href="#flower" transform="translate(324, 359)" />
+  <use href="#flower" transform="translate(510, 355)" />
+  <use href="#flower" transform="translate(538, 358)" />
+  <use href="#flower" transform="translate(566, 356)" />
+
+  <!-- ═══════════════════════════════════════════
+       MAILBOX POST  –  rect + rect
+  ═══════════════════════════════════════════ -->
+  <g id="mailbox" transform="translate(195, 330)">
+    <!-- post -->
+    <rect x="-3" y="0" width="6" height="45"
+          fill="#8b6c42" />
+    <!-- box body -->
+    <rect x="-18" y="-22" width="36" height="24"
+          fill="#4169e1" stroke="#1e3a8a" stroke-width="1.5"
+          rx="3" ry="3" />
+    <!-- 2. Path: curved mailbox lid -->
+    <path d="M -18 -22 Q 0 -40 18 -22"
+          fill="#1e3a8a" />
+    <!-- mail slot line -->
+    <line x1="-10" y1="-12" x2="10" y2="-12"
+          stroke="#add8e6" stroke-width="1.5" />
+  </g>
+
+  <!-- ═══════════════════════════════════════════
+       GARDEN SIGN  –  path shape + text
+       2. Paths, 3. Text
+  ═══════════════════════════════════════════ -->
+  <g id="sign" transform="translate(588, 370)">
+    <!-- post -->
+    <rect x="-3" y="0" width="6" height="50"
+          fill="#8b6c42" />
+    <!-- 2. Path: hexagonal sign panel -->
+    <path d="M -45 -65
+             L -55 -45 L -55 -20
+             L -45  0
+             L  45  0  L  55 -20
+             L  55 -45 L  45 -65 Z"
+          class="path-sign" />
+    <!-- 3. Text on sign -->
+    <text x="0" y="-45" class="sign-text">Lam's House</text>
+    <text x="0" y="-25" class="sign-text" font-size="11px">Est. 2026</text>
+  </g>
+
+  <!-- ═══════════════════════════════════════════
+       TITLE TEXT
+       3. Text
+  ═══════════════════════════════════════════ -->
+  <text x="400" y="495" class="title-text">
+    A House &amp; Garden — SVG Demo
+  </text>
+</svg>
+</body>
+</html>
