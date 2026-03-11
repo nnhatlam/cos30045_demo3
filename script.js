@@ -70,6 +70,21 @@ document.addEventListener('DOMContentLoaded', () => { // ensures the html is ful
         if (path.includes('about.html')) return 'about';
         return 'home';
     }
+
+    const svg = d3.select('.responsive-svg-container')
+        .append('svg')
+            .attr("width", "100%")
+            .attr("height", 600)
+            .attr("viewBox", "0 0 1200 600")
+            .style("border", "1px solid black")
+    
+    svg
+        .append('rect')
+            .attr('x', 10)
+            .attr('y', 10)
+            .attr('width', 414)
+            .attr('height', 16)
+            .attr('fill', '#1c71df')
+            .attr('stroke', '#1e3a8a')
+            .attr('stroke-width', 2);
 });
-d3.select("h1")
-                .style("color", "steelblue");
