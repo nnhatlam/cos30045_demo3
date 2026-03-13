@@ -29,18 +29,52 @@ const createBarChart = (data) => {
     .domain(data.map(d => d.brand))
         .range([0, 600])
         .padding(0.1);
-
-    svg.selectAll("rect")
+    const barAndLabel = svg
+    .selectAll("g")
     .data(data)
-    .join("rect")
-    .attr("x", 0)
-    .attr("class", data => {
-        console.log(data);
-        return `bar bar-${data.no_models}`;
-    })
-    .attr("y", data => yScale(data.brand))
-    .attr("width", data => xScale(data.no_models))
-    .attr("height", yScale.bandwidth())
-    .attr("fill", "steelblue")
-    .attr("padding", "5px")
+    .join("g")
+    .attr("transform", d => `translate(0, ${yScale(d.brand)})`);
+
+    barAndLabel
+        .append("rect")
+        .attr("x", 200)
+        .attr("class", data => {
+            console.log(data);
+            return `bar bar-${data.no_models}`;
+        })
+        .attr("y", data => yScale(data.brand))
+        .attr("width", data => xScale(data.no_models))
+        .attr("height", yScale.bandwidth())
+        .attr("fill", "steelblue")
+        .attr("padding", "5px");
+    
+    barAndLabel
+        .append("text")
+        .text(data => data.brand)
+        .attr("x", 100)
+        .attr("y", 15)
+        .attr("text-anchor", "end")
+        .style("font-family", "sans-serif")
+        .style("font-size", "10px");
+    barAndLabel
+        .append("text")
+        .text(data => data.no_models)
+        .attr("x", data => 500 +  xScale(data.no_models) + 5)
+        .attr("y", 20)
+        .style("font-family", "sans-serif")
+        .style("font-size", "13px");
+    
+    // svg.selectAll("rect")
+    // .data(data)
+    // .join("rect");
+    // .attr("x", 0)
+    // .attr("class", data => {
+    //     console.log(data);
+    //     return `bar bar-${data.no_models}`;
+    // })
+    // .attr("y", data => yScale(data.brand))
+    // .attr("width", data => xScale(data.no_models))
+    // .attr("height", yScale.bandwidth())
+    // .attr("fill", "steelblue")
+    // .attr("padding", "5px")
 }
