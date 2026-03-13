@@ -2,7 +2,7 @@ const svg = d3.select('.responsive-svg-container')
     .append('svg')
         .attr("width", "100%")
         .attr("height", 600)
-        .attr("viewBox", "0 0 1200 600")
+        .attr("viewBox", "0 0 500 600")
         .style("border", "1px solid black")
 
 d3.csv("data/brand_model.csv").then(data => {console.log(data)});
@@ -21,9 +21,9 @@ d3.csv("data/brand_model.csv", d => {
 });
 const createBarChart = (data) => {
     const chartTopY = 0;
-    const chartBaseY = 560;
+    const chartBaseY = 1310;
     const chartLeftX = 0;
-    const chartRightX = 1160;
+    const chartRightX = 500;
     const maxModels = d3.max(data, d => d.no_models) || 1;
 
     const xScale = d3.scaleLinear()
@@ -31,7 +31,7 @@ const createBarChart = (data) => {
         .range([chartLeftX, chartRightX]);
 
     const yScale = d3.scaleBand()
-        .domain(d3.range(data.length))
+        .domain(data.map((d) => d.brand))
         .range([chartTopY, chartBaseY])
         .padding(0.2);
 
