@@ -1,6 +1,6 @@
 const svg = d3.select('.responsive-svg-container')
     .append('svg')
-        .attr("viewBox", "0 500 700")
+        .attr("viewBox", "0 0 500 680")
         .style("border", "0.5px solid grey")
         .attr("margin", "10px");
 
@@ -14,7 +14,7 @@ d3.csv("data/brand_model.csv", d => {
         no_models: +d.OCCURRENCE_COUNT // integer
     };
 }).then(data => {
-    const limitedData = data.slice(0, 15);
+    const limitedData = data.slice(0, 20);
     console.log(data);
     console.log(data.length);
     console.log(d3.max(data, d => d.no_models));
