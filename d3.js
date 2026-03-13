@@ -1,7 +1,8 @@
 const svg = d3.select('.responsive-svg-container')
     .append('svg')
-        .attr("viewBox", "0 0 500 600")
-        .style("border", "1px solid black")
+        .attr("viewBox", "0 0 700")
+        .style("border", "0.5px solid grey")
+        .attr("margin", "10px");
 
 svg
     .append('rect')
@@ -13,18 +14,19 @@ d3.csv("data/brand_model.csv", d => {
         no_models: +d.OCCURRENCE_COUNT // integer
     };
 }).then(data => {
+    const limitedData = data.slice(0, 15);
     console.log(data);
     console.log(data.length);
     console.log(d3.max(data, d => d.no_models));
     console.log(d3.min(data, d => d.no_models));
     console.log(d3.extent(data, d => d.no_models));
-    createBarChart(data);
+    createBarChart(limitedData);
 });
 const createBarChart = (data) => {
     const xScale = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.no_models)])
         .range([0, 500]);
-
+        
     const yScale = d3.scaleBand()
     .domain(data.map(d => d.brand))
         .range([0, 600])
@@ -37,12 +39,12 @@ const createBarChart = (data) => {
 
     barAndLabel
         .append("rect")
-        .attr("x", 200)
+        .attr("x", 120)
         .attr("class", data => {
             console.log(data);
             return `bar bar-${data.no_models}`;
         })
-        .attr("y", data => yScale(data.brand))
+        .attr("y", 0)
         .attr("width", data => xScale(data.no_models))
         .attr("height", yScale.bandwidth())
         .attr("fill", "steelblue")
@@ -59,7 +61,7 @@ const createBarChart = (data) => {
     barAndLabel
         .append("text")
         .text(data => data.no_models)
-        .attr("x", data => 500 +  xScale(data.no_models) + 5)
+        .attr("x", data => 120 +  xScale(data.no_models) + 5)
         .attr("y", 20)
         .style("font-family", "sans-serif")
         .style("font-size", "13px");
