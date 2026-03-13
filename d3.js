@@ -1,75 +1,51 @@
-const width = 1200;
-const height = 600;
-const margin = { top: 30, right: 30, bottom: 120, left: 80 };
+const svg = d3.select('.responsive-svg-container')
+    .append('svg')
+        .attr("width", "100%")
+        .attr("height", 600)
+        .attr("viewBox", "0 0 1200 600")
+        .style("border", "1px solid black")
 
-const svg = d3
-    .select(".responsive-svg-container")
-    .append("svg")
-    .attr("width", "100%")
-    .attr("height", height)
-    .attr("viewBox", `0 0 ${width} ${height}`)
-    .style("border", "1px solid #ddd");
+d3.csv("data/brand_model.csv").then(data => {console.log(data)});
+d3.csv("data/brand_model.csv", d => {
+    return {
+        brand: d.Brand_Reg,
+        no_models: +d.OCCURRENCE_COUNT // integer
+    };
+}).then(data => {
+    console.log(data);
+    console.log(data.length);
+    console.log(d3.max(data, d => d.no_models));
+    console.log(d3.min(data, d => d.no_models));
+    console.log(d3.extent(data, d => d.no_models));
+    createBarChart(data);
+});
+const createBarChart = (data) => {
+    const chartTopY = 0;
+    const chartBaseY = 560;
+    const chartLeftX = 0;
+    const chartRightX = 1160;
+    const maxModels = d3.max(data, d => d.no_models) || 1;
 
-const chart = svg
-    .append("g")
-    .attr("transform", `translate(${margin.left},${margin.top})`);
+    const xScale = d3.scaleLinear()
+        .domain([0, maxModels])
+        .range([chartLeftX, chartRightX]);
 
-const innerWidth = width - margin.left - margin.right;
-const innerHeight = height - margin.top - margin.bottom;
-
-function createBarChart(data) {
-    // Keep it simple: show top 15 brands by model count.
-    const topData = data
-        .filter((d) => Number.isFinite(d.no_models))
-        .sort((a, b) => b.no_models - a.no_models)
-        .slice(0, 15);
-
-    const x = d3
-        .scaleBand()
-        .domain(topData.map((d) => d.brand))
-        .range([0, innerWidth])
+    const yScale = d3.scaleBand()
+        .domain(d3.range(data.length))
+        .range([chartTopY, chartBaseY])
         .padding(0.2);
 
-    const y = d3
-        .scaleLinear()
-        .domain([0, d3.max(topData, (d) => d.no_models)])
-        .nice()
-        .range([innerHeight, 0]);
-
-    chart
-        .selectAll("rect")
-        .data(topData)
+    svg
+        .selectAll('.bar')
+        .data(data)
         .join("rect")
-        .attr("x", (d) => x(d.brand))
-        .attr("y", (d) => y(d.no_models))
-        .attr("width", x.bandwidth())
-        .attr("height", (d) => innerHeight - y(d.no_models))
-        .attr("fill", "#1c71df");
-
-    chart
-        .append("g")
-        .attr("transform", `translate(0,${innerHeight})`)
-        .call(d3.axisBottom(x))
-        .selectAll("text")
-        .attr("transform", "rotate(-35)")
-        .style("text-anchor", "end");
-
-    chart.append("g").call(d3.axisLeft(y));
-
-    chart
-        .selectAll(".value-label")
-        .data(topData)
-        .join("text")
-        .attr("class", "value-label")
-        .attr("x", (d) => x(d.brand) + x.bandwidth() / 2)
-        .attr("y", (d) => y(d.no_models) - 6)
-        .attr("text-anchor", "middle")
-        .attr("font-size", 11)
-        .text((d) => d.no_models);
+        .attr("x", chartLeftX)
+        .attr("y", (d, i) => yScale(i))
+        .attr("width", d => xScale(d.no_models) - chartLeftX)
+        .attr("height", yScale.bandwidth())
+        .attr("fill", "#1c71df")
+        .attr("class", data =>{
+            console.log(data);
+            return `bar bar-${data.no_models}`;
+        })
 }
-
-d3.csv("data/brand_model.csv", (d) => ({
-    brand: d.Brand_Reg,
-    no_models: +d.OCCURRENCE_COUNT
-})).then(createBarChart)
-  .catch((error) => console.error("Failed to load CSV:", error));
