@@ -1,6 +1,6 @@
 const svg = d3.select('.responsive-svg-container')
     .append('svg')
-        .attr("viewBox", "0 0 500 1600")
+        .attr("viewBox", "0 0 500 600")
         .style("border", "1px solid black")
 
 svg
@@ -21,6 +21,14 @@ d3.csv("data/brand_model.csv", d => {
     createBarChart(data);
 });
 const createBarChart = (data) => {
+    const xScale = d3.scaleLinear()
+        .domain([0, d3.max(data, d => d.no_models)])
+        .range([0, 500]);
+
+    const yScale = d3.scaleBand()
+    .domain(data.map(d => d.brand))
+        .range([0, 600])
+        .padding(0.1);
 
     svg.selectAll("rect")
     .data(data)
@@ -30,8 +38,9 @@ const createBarChart = (data) => {
         console.log(data);
         return `bar bar-${data.no_models}`;
     })
-    .attr("y", (data, i) => i * 30)
-    .attr("width", data => data.no_models * 10)
-    .attr("height", 20)
-    .attr("fill", "steelblue");
+    .attr("y", data => yScale(data.brand))
+    .attr("width", data => xScale(data.no_models))
+    .attr("height", yScale.bandwidth())
+    .attr("fill", "steelblue")
+    .attr("padding", "5px")
 }
