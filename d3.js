@@ -1,6 +1,6 @@
 const svg = d3.select('.responsive-svg-container')
     .append('svg')
-        .attr("viewBox", "0 0 700")
+        .attr("viewBox", "0 500 700")
         .style("border", "0.5px solid grey")
         .attr("margin", "10px");
 
