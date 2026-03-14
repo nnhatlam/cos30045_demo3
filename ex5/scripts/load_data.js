@@ -11,12 +11,13 @@ d3.csv("data/screentech_energy.csv", d => ({
 d3.csv("data/screen_sri.csv", d => ({
     screen_tech: d.screen_tech,
     sri: +d.star2,
-    screen_size: d.screen_size,
+    screen_size: +d.screensize,
     energy_consumption: +d.energy_consumpt,
 })).then(data => {
+    data.sort((a, b) => a.screen_size - b.screen_size);
     console.log("Screen Technology, SRI, Screen Size, and Energy Consumption Data:", data);
     if (typeof defineScales === "function") {
-        defineScales(data);
+        defineScales(data, "screen_size", "energy_consumption");
     }
     if (typeof window.createScatterPlot === "function") {
         window.createScatterPlot(data);
