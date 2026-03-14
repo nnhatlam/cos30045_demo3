@@ -23,6 +23,8 @@ function createScatterPlot(data) {
     // Add x-axis label + draw x-axis
         .attr("class", "x-axis")
         .attr("transform", `translate(0, ${innerHeight})`)
+        // write the text for x-axis label
+
         .call(d3.axisBottom(xScale).ticks(10).tickFormat(d => `${d}"`))
         .call(g => g.selectAll(".tick text")
             .style("font-family", "sans-serif")
@@ -53,6 +55,7 @@ function createScatterPlot(data) {
     // Add y-axis label
         .attr("class", "y-axis")
         .call(d3.axisLeft(yScale).ticks(8).tickFormat(d => `${d}`))
+        // write the text for y-axis label
         .call(g => g.selectAll(".tick text")
             .style("font-family", "sans-serif")
             .style("font-size", "11px")

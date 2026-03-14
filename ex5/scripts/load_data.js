@@ -24,6 +24,22 @@ d3.csv("data/screen_sri.csv", d => ({
     }
 });
 
+d3.csv("data/TV_prices.csv", d => ({
+    qsl : +d.Queensland ,
+    nsw : +d["New South Wales"],
+    vic : +d.Victoria,
+    sa : +d["South Australia"],
+    tas : +d.Tasmania,
+    snowy : +d.Snowy,
+    average_price : +d["Average Price"],
+    year : +d.Year
+})).then(data => {
+    console.log("TV Prices Data:", data);
+    if (typeof window.createLineChart === "function") {
+        window.createLineChart(data);
+    }
+}); 
+
 
 
 
