@@ -1,0 +1,88 @@
+<!-- Insights page -->
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Insights - Energy Company</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <header>
+            <a href="index.html">
+                <div>
+                    <img src="images/logo1.png" alt="energy_company logo" />
+                    <h3>Energy Company</h3>
+                </div>
+            </a>
+            <nav>
+                <ul>
+                    <li><a href="index.html" data-page ="home" class="nav-link">Home</a></li>
+                    <li><a href="televisions.html" data-page ="televisions" class="nav-link">Televisions</a></li>
+                    <li><a href="insights.html" data-page ="insights" class="nav-link active">Insights</a></li>
+                    <li><a href="about.html" data-page ="about" class="nav-link">About us</a></li>
+                </ul>
+            </nav>
+        </header>
+        <main>
+            <section>
+                <h1>Energy Insights</h1>
+                <p>Discover the latest trends and insights in TV energy consumption. We analyze data from the Australian government's energy rating website to bring you valuable information on how TVs are evolving in terms of energy efficiency.</p>
+            </section>            
+            <section>
+                <h2>Trends in Energy Efficiency</h2>
+                <p>Over the past few years, there has been a significant improvement in the energy efficiency of televisions. Manufacturers are adopting new technologies that reduce power consumption while maintaining high performance and picture quality.</p>
+            </section>
+            <section>
+
+<!-- DONUT CHART -->
+                <h2>Most Frequent Screen Technology in Australia</h2>
+                <p>See which screen technology consumes the most energy:</p>
+                <div
+                    class="responsive-svg-container"
+                    id="donut-chart"
+                    role="img"
+                    aria-label="Donut chart showing annual energy consumption by screen technology."
+                    aria-describedby="donut-chart-alt"
+                ></div>
+                <p id="donut-chart-alt">
+                    This donut chart compares annual energy consumption among LCD, LED, and OLED televisions.
+                    OLED has the highest consumption, followed by LED, then LCD.
+                    Exact percentages are shown as labels on the chart and are also available in the chart tooltip.
+                </p>
+
+<!-- SCATTER PLOT -->
+                <h2>Energy consumptions and Star Rating</h2>
+                <p>Want to know the relationships between Energy consumptions and Star rating index. Let us tell you.</p>
+                <div class="responsive-svg-container" id="scatter-plot"></div>
+                
+<!-- BAR CHART -->
+                <h2>Energy consumption by screen size</h2>
+                <div class="responsive-svg-container" id="bar-chart"></div>
+
+<!-- LINE CHART -->
+                <h2>Star rating for different screen sizes</h2>
+                <div class="responsive-svg-container" id="line-chart"></div>
+            </section>
+            <section>
+                <h2>Acknowledgements</h2>
+                <p>Data Source: All TV data is sourced from the Australian Government's official energy rating website at <a href="https://reg.energyrating.gov.au/comparator/product_types/32/search/?expired_products=on" class="hyperlinks">reg.energyrating.gov.au</a>.</p>
+                <p>Data Analysis and Visualization: The insights and visualizations presented on this page were created using KNIME Analytics Platform</p>
+            </section>
+        </main>
+        <footer>
+            <p>&copy; 2026 Nhat Lam Energy Company</p>
+            <p>Page Content created with help from GitHub Copilot</p>
+        </footer>
+        <script src="https://d3js.org/d3.v7.min.js"></script>
+        <script src="scripts/script.js"></script>
+        <script src="scripts/shared_constants.js"></script>
+        <script src="scripts/interactions.js"></script>
+        <script src="scripts/scales.js"></script>
+        <script src="scripts/line_chart.js"></script>
+        <script src="scripts/scatter_plot.js"></script>
+        <script src="scripts/bar_chart.js"></script>
+        <script src="scripts/donut_chart.js"></script>
+        <script src="scripts/load_data.js"></script>
+    </body>
+</html>

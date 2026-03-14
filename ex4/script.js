@@ -67,6 +67,7 @@ document.addEventListener('DOMContentLoaded', () => { // ensures the html is ful
     function getCurrentPage() {
         const path = window.location.pathname;
         if (path.includes('televisions.html')) return 'televisions';
+        if (path.includes('insights.html')) return 'insights';
         if (path.includes('about.html')) return 'about';
         return 'home';
     }
