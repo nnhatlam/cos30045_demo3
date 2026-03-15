@@ -40,6 +40,16 @@ d3.csv("data/TV_prices.csv", d => ({
     }
 }); 
 
+d3.csv("data/55inch_energy_consumption.csv", d => ({
+    screen_tech: d.Screen_Tech,
+    energy_consumption: +d.Energy_Consumption_per_Year_kW
+})).then(data => {
+    console.log("55 inch TV Energy Consumption Data:", data);
+    if (typeof window.createBarChart === "function") {
+        window.createBarChart(data);
+    }
+});
+
 
 
 

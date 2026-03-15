@@ -1,4 +1,6 @@
 function createLineChart(data) {
+    const legendHeight = 56;
+    const svgHeight = height + legendHeight;
     const sortedData = [...data].sort((a, b) => a.year - b.year);
     const seriesList = formatLines.map(series => ({
         ...series,
@@ -30,7 +32,7 @@ function createLineChart(data) {
 
     const svg = root
         .append("svg")
-        .attr("viewBox", `0 0 ${width} ${height}`)
+        .attr("viewBox", `0 0 ${width} ${svgHeight}`)
         .attr("role", "img")
         .attr("focusable", "true")
         .attr("tabindex", 0)
@@ -117,59 +119,7 @@ function createLineChart(data) {
         .call(g => g.selectAll(".tick line")
             .attr("stroke", "#e0e0e0")
             .attr("stroke-dasharray", "3,3"));
-    const tooltip = typeof getDonutTooltip === "function"
-        ? getDonutTooltip()
-        : d3.select("body")
-            .append("div")
-            .attr("class", "donut-tooltip")
-            .style("position", "fixed")
-            .style("pointer-events", "none")
-            .style("z-index", "9999")
-            .style("padding", "8px 10px")
-            .style("border-radius", "8px")
-            .style("font-family", "sans-serif")
-            .style("font-size", "12px")
-            .style("line-height", "1.4")
-            .style("color", "#fff")
-            .style("background", "rgba(17, 24, 39, 0.95)")
-            .style("box-shadow", "0 8px 20px rgba(0,0,0,0.22)")
-            .style("opacity", 0);
-
-    const positionTooltipFromPointer = (event) => {
-        tooltip
-            .style("left", `${event.clientX + 14}px`)
-            .style("top", `${event.clientY + 14}px`);
-    };
-
-    const positionTooltipFromElement = (element) => {
-        const rect = element.getBoundingClientRect();
-        tooltip
-            .style("left", `${rect.left + rect.width / 2 + 12}px`)
-            .style("top", `${rect.top - 10}px`);
-    };
-
-    const hideTooltip = () => {
-        tooltip.style("opacity", 0);
-    };
-
-    const showSeriesTooltip = (series) => {
-        tooltip
-            .style("opacity", 1)
-            .html(
-                `<strong>${series.label}</strong><br>` +
-                `Click to isolate this line.`
-            );
-    };
-
-    const showPointTooltip = (series, point) => {
-        tooltip
-            .style("opacity", 1)
-            .html(
-                `<strong>${series.label}</strong><br>` +
-                `Year: ${point.year}<br>` +
-                `Price: ${d3.format(",.0f")(point.value)} AUD`
-            );
-    };
+    
 
     let activeSeriesId = null;
 
@@ -182,6 +132,11 @@ function createLineChart(data) {
 
         pointGroups
             .attr("display", d => activeSeriesId === null || d.id === activeSeriesId ? null : "none");
+
+        legendItems
+            .attr("opacity", d => activeSeriesId === null || d.id === activeSeriesId ? 1 : 0.35)
+            .select("text")
+            .style("font-weight", d => activeSeriesId === d.id ? "700" : "500");
     };
 
     const toggleSeries = (seriesId) => {
@@ -273,6 +228,35 @@ function createLineChart(data) {
                 hideTooltip();
             }
         });
+
+    const legendColumns = 3;
+    const legendItemWidth = innerWidth / legendColumns;
+    const legendGroup = svg.append("g")
+        .attr("class", "line-chart-legend")
+        .attr("transform", `translate(${margin.left}, ${height + 10})`);
+
+    const legendItems = legendGroup.selectAll("g")
+        .data(seriesList)
+        .join("g")
+        .attr("transform", (d, i) => `translate(${(i % legendColumns) * legendItemWidth}, ${Math.floor(i / legendColumns) * 18})`);
+
+    legendItems.append("line")
+        .attr("x1", 0)
+        .attr("y1", 0)
+        .attr("x2", 15)
+        .attr("y2", 0)
+        .attr("stroke", d => d.color)
+        .attr("stroke-width", d => d.id === "average_price" ? 3 : 2)
+        .attr("stroke-linecap", "round");
+
+    legendItems.append("text")
+        .attr("x", 30)
+        .attr("y", 4)
+        .attr("fill", "#222")
+        .style("font-family", "sans-serif")
+        .style("font-size", "11px")
+        .style("font-weight", "500")
+        .text(d => d.label);
 
     svg.on("click", () => {
         activeSeriesId = null;

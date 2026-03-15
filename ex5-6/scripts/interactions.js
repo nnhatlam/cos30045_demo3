@@ -239,3 +239,57 @@ const ScatterPointInteractions = () => {
         });
 }
 
+const tooltip = typeof getDonutTooltip === "function"
+        ? getDonutTooltip()
+        : d3.select("body")
+            .append("div")
+            .attr("class", "donut-tooltip")
+            .style("position", "fixed")
+            .style("pointer-events", "none")
+            .style("z-index", "9999")
+            .style("padding", "8px 10px")
+            .style("border-radius", "8px")
+            .style("font-family", "sans-serif")
+            .style("font-size", "12px")
+            .style("line-height", "1.4")
+            .style("color", "#fff")
+            .style("background", "rgba(17, 24, 39, 0.95)")
+            .style("box-shadow", "0 8px 20px rgba(0,0,0,0.22)")
+            .style("opacity", 0);
+
+    const positionTooltipFromPointer = (event) => {
+        tooltip
+            .style("left", `${event.clientX + 14}px`)
+            .style("top", `${event.clientY + 14}px`);
+    };
+
+    const positionTooltipFromElement = (element) => {
+        const rect = element.getBoundingClientRect();
+        tooltip
+            .style("left", `${rect.left + rect.width / 2 + 12}px`)
+            .style("top", `${rect.top - 10}px`);
+    };
+
+    const hideTooltip = () => {
+        tooltip.style("opacity", 0);
+    };
+
+    const showSeriesTooltip = (series) => {
+        tooltip
+            .style("opacity", 1)
+            .html(
+                `<strong>${series.label}</strong><br>` +
+                `Click to isolate this line.`
+            );
+    };
+
+    const showPointTooltip = (series, point) => {
+        tooltip
+            .style("opacity", 1)
+            .html(
+                `<strong>${series.label}</strong><br>` +
+                `Year: ${point.year}<br>` +
+                `Price: ${d3.format(",.0f")(point.value)} AUD`
+            );
+    };
+
