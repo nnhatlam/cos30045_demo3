@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>EX6 Histogram Visualisation</title>
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/visualisation.css">
+</head>
+<body>
+	<header>
+		<div class="brand">
+			<h1>Energy TV Histogram</h1>
+			<p>Energy consumption distribution from Ex6 TV data</p>
+		</div>
+	</header>
+
+	<main>
+		<section class="controls-panel">
+			<div>
+				<h2>Filter by Screen Technology</h2>
+				<div id="filters_screen" class="filters"></div>
+				<h2>Filter by Screen Size</h2>
+				<div id="filters_size" class="filters"></div>
+			</div>
+		</section>
+
+		<section class="chart-panel">
+			<h2>Histogram: Labeled Energy Consumption (kWh/year)</h2>
+			<div id="histogram"></div>
+		</section>
+	</main>
+
+	<script src="https://d3js.org/d3.v7.min.js"></script>
+	<script src="js/shared-constants.js"></script>
+	<script src="js/histogram.js"></script>
+	<script src="js/interactions.js"></script>
+	<script src="js/load-data.js"></script>
+</body>
+</html>
