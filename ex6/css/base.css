@@ -6,7 +6,7 @@
 }
 
 :root {
-	--primary-dark: #06231D;
+	--primary-dark: #041C17;
 	--primary-light: #E2FBCE;
 	--page-bg: linear-gradient(180deg, #E2FBCE 0%, rgba(7, 102, 83, 0.50) 100%);
 	--panel-bg: #ffffff;
@@ -29,7 +29,7 @@ header {
 }
 
 .brand h1 {
-	color: #06231D;
+	color: #041C17;
 	font-size: 2rem;
 }
 

@@ -1,6 +1,6 @@
 const svg = d3.select('.responsive-svg-container')
     .append('svg')
-        .attr("viewBox", "0 0 600 600")
+        .attr("viewBox", "0 0 600 500")
         .style("border", "0.5px solid grey")
         .attr("preserveAspectRatio", "xMidYMid meet")
         .style("width", "100%")
@@ -31,7 +31,7 @@ const createBarChart = (data) => {
         
     const yScale = d3.scaleBand()
     .domain(data.map(d => d.brand))
-        .range([0, 600]) // height of the SVG
+        .range([0, 500]) // height of the SVG
         .padding(0.1);
     const barAndLabel = svg
     .selectAll("g")
@@ -41,7 +41,7 @@ const createBarChart = (data) => {
 
     barAndLabel
         .append("rect")
-        .attr("x", 100)
+        .attr("x", 120)
         .attr("class", data => {
             console.log(data);
             return `bar bar-${data.no_models}`;
@@ -55,18 +55,18 @@ const createBarChart = (data) => {
     barAndLabel
         .append("text")
         .text(data => data.brand)
-        .attr("x", 90)
+        .attr("x", 100)
         .attr("y", 15)
         .attr("text-anchor", "end")
         .style("font-family", "sans-serif")
-        .style("font-size", "clamp(4px, 1.2vw, 57px)"); // responsive font size using clamp
+        .style("font-size", "clamp(4px, 0.7vw, 57px)"); // responsive font size using clamp
     barAndLabel
         .append("text")
         .text(data => data.no_models)
-        .attr("x", data => 100 +  xScale(data.no_models) + 7) // position to the right of the bar
+        .attr("x", data => 120 +  xScale(data.no_models) + 7) // position to the right of the bar
         .attr("y", 20)
         .style("font-family", "sans-serif")
-        .style("font-size", "clamp(4px, 1.5vw, 57px)"); // responsive font size using clamp
+        .style("font-size", "clamp(4px, 1.2vw, 57px)"); // responsive font size using clamp
     
     // svg.selectAll("rect")
     // .data(data)

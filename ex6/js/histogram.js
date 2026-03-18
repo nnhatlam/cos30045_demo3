@@ -18,7 +18,7 @@ const drawAxes = (innerChart, svg) => {
 
     innerChart
         .selectAll(".y-axis")
-        .data([null])
+        .data([null])  //ensure having only 1 x, y axis
         .join("g")
         .attr("class", "y-axis")
         .call(d3.axisLeft(yScale).ticks(5));

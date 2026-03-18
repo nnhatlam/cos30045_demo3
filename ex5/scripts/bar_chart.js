@@ -59,7 +59,7 @@ function createBarChart(data) {
         .call(g => g.selectAll(".tick line")
             .attr("stroke", "#e0e0e0")
             .attr("stroke-dasharray", "3,3"));
-
+// create dash lines for the chart background
     group.append("g")
         .attr("class", "x-axis")
         .attr("transform", `translate(0, ${innerHeight})`)
